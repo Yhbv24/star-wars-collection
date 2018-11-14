@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import Button from './components/Button';
 import './bootstrap.min.css';
 
 class App extends Component {
@@ -11,8 +12,8 @@ class App extends Component {
     }
   }
 
-  handleClick = () => {
-    this.setState(prevState => ({ clicks: prevState.clicks + 1 }));
+  handleClick(num) {
+    this.setState(prevState => ({ clicks: prevState.clicks + num }));
   }
 
   render() {
@@ -20,7 +21,9 @@ class App extends Component {
       <div className="container">
         <div className="row">
           <div className="col-md-12">
-            <Button addOne={this.handleClick} />
+            <Button calculate={this.handleClick.bind(this, 1)} num={1} />
+            <Button calculate={this.handleClick.bind(this, 5)} num={5} />
+            <Button calculate={this.handleClick.bind(this, -1)} num={-1} />
             <p>Number of clicks: {this.state.clicks}</p>
           </div>
         </div>
@@ -28,7 +31,5 @@ class App extends Component {
     );
   }
 }
-
-const Button = props => <button className="btn btn-sm btn-primary" onClick={props.addOne}>Click Me!</button>;
 
 ReactDOM.render(<App />, document.getElementById('app'));
