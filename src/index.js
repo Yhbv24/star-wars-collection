@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Button from './components/Button';
+import PersonList from './components/PersonList';
 import './bootstrap.min.css';
 
 class App extends Component {
@@ -8,12 +8,32 @@ class App extends Component {
     super();
 
     this.state = {
-      clicks: 0
+      people: [
+        {
+          name: 'Ash',
+          age: 33
+        },
+        {
+          name: 'Tiffany',
+          age: 31
+        },
+        {
+          name: 'Felix',
+          age: 30
+        }
+      ]
     }
   }
 
-  handleClick(num) {
-    this.setState(prevState => ({ clicks: prevState.clicks + num }));
+  handleAdd = person => {
+    // Will fill in later
+  }
+
+  handleRemove = i => {
+    let people = [...this.state.people];
+
+    people.splice(i, 1);
+    this.setState({ people: people });
   }
 
   render() {
@@ -21,10 +41,11 @@ class App extends Component {
       <div className="container">
         <div className="row">
           <div className="col-md-12">
-            <Button calculate={this.handleClick.bind(this, 1)} num={1} />
-            <Button calculate={this.handleClick.bind(this, 5)} num={5} />
-            <Button calculate={this.handleClick.bind(this, -1)} num={-1} />
-            <p>Number of clicks: {this.state.clicks}</p>
+            <PersonList
+              people={this.state.people}
+              add={this.handleAdd}
+              delete={this.handleRemove}
+            />
           </div>
         </div>
       </div>
