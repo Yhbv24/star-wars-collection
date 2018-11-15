@@ -5,7 +5,7 @@ import Button from './Button';
 const Person = props => (
   <div className="person">
     <div className="person__title"><strong>{props.name}</strong></div>
-    <div className="person__body">Age: {props.age}</div>
+    <div className="person__body">Birth Year: {props.birthYear}</div>
     <br />
     <div className="edit-section">
       <Button

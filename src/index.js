@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PersonList from './components/PersonList';
+import Button from './components/Button';
 import './bootstrap.min.css';
 
 class App extends Component {
@@ -8,25 +9,23 @@ class App extends Component {
     super();
 
     this.state = {
-      people: [
-        {
-          name: 'Ash',
-          age: 33
-        },
-        {
-          name: 'Tiffany',
-          age: 31
-        },
-        {
-          name: 'Felix',
-          age: 30
-        }
-      ]
+      people: [],
+      page: 1
     }
   }
 
-  handleAdd = person => {
-    // Will fill in later
+  componentWillMount = () => {
+    this.getResults(1);
+  }
+
+  getResults = () => {
+    fetch('https://swapi.co/api/people/?page=' + this.state.page)
+    .then(response => response.json())
+    .then(data => {
+      this.setState({ people: this.state.people.concat(data.results) });
+    });
+
+    this.setState({ page: this.state.page + 1 });
   }
 
   handleRemove = i => {
@@ -37,19 +36,26 @@ class App extends Component {
   }
 
   render() {
-    return (
+    return this.state.people.length >= 1 ? (
       <div className="container">
         <div className="row">
           <div className="col-md-12">
             <PersonList
               people={this.state.people}
-              add={this.handleAdd}
               delete={this.handleRemove}
+            />
+            <Button
+              btnType="button"
+              btnClass="btn btn-primary"
+              handler={this.getResults}
+              text="Get More Results"
             />
           </div>
         </div>
       </div>
-    );
+    ) : <div className="container">
+      <p>Loading...</p>
+    </div> 
   }
 }
 
