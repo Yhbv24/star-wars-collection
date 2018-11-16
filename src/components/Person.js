@@ -21,7 +21,8 @@ const Person = props => (
 
 Person.propTypes = {
   name: PropTypes.string,
-  age: PropTypes.number
+  birthYear: PropTypes.number,
+  index: PropTypes.number.isRequired
 }
 
 export default Person;

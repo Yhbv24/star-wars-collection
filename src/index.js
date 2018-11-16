@@ -36,7 +36,7 @@ class App extends Component {
   }
 
   render() {
-    return this.state.people.length >= 1 ? (
+    return this.state.people.length >= 1 ?
       <div className="container">
         <div className="row">
           <div className="col-md-12">
@@ -53,9 +53,10 @@ class App extends Component {
           </div>
         </div>
       </div>
-    ) : <div className="container">
-      <p>Loading...</p>
-    </div> 
+      : 
+      <div className="container">
+        <p>Loading...</p>
+      </div> 
   }
 }
 
